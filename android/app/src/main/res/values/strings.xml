@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">UriSNAP</string>
+    <string name="title_activity_main">UriSNAP</string>
+    <string name="package_name">UriSNAP.app</string>
+    <string name="custom_url_scheme">UriSNAP.app</string>
+</resources>
