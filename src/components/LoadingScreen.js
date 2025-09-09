@@ -21,7 +21,7 @@ export function LoadingScreen() {
         {/* Logo Container */}
         <div className="relative">
           {/* Animated Background Circle */}
-          <div className="absolute inset-0 animate-pulse">
+          <div className="absolute inset-0 animate-pulse-glow">
             <div className="w-24 h-24 bg-primary/10 rounded-full mx-auto"></div>
           </div>
           

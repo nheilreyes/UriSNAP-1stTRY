@@ -1,117 +1,107 @@
-import { useState, useEffect } from 'react';
-import { LoadingScreen } from './components/LoadingScreen.js';
-import { LoginForm } from './components/auth/LoginForm.js';
-import { SignupForm } from './components/auth/SignupForm.js';
-import { Dashboard } from './components/dashboard/Dashboard.js';
-import { CameraCapture } from './components/camera/CameraCapture.js';
-import { AnalysisResults } from './components/analysis/AnalysisResults.js';
-import { ThemeProvider } from './components/theme/ThemeProvider.js';
+import { Suspense, lazy } from 'react';
+import { useAppState } from './hooks/useAppState';
+import { EnhancedLoadingScreen } from './components/enhanced/EnhancedLoadingScreen';
+import { OnboardingFlow } from './components/onboarding/OnboardingFlow';
+import { LoginForm } from './components/auth/LoginForm';
+import { SignupForm } from './components/auth/SignupForm';
+import { EnhancedDashboard } from './components/enhanced/EnhancedDashboard';
+import { CameraCapture } from './components/camera/CameraCapture';
+import { AnalysisResults } from './components/analysis/AnalysisResults';
+import { UserProfile } from './components/profile/UserProfile';
+import { ThemeProvider } from './components/theme/ThemeProvider';
 import { toast, Toaster } from 'sonner';
 
+// Lazy load components for better performance
+const LazyAnalysisResults = lazy(() => import('./components/analysis/AnalysisResults').then(module => ({ default: module.AnalysisResults })));
+const LazyCameraCapture = lazy(() => import('./components/camera/CameraCapture').then(module => ({ default: module.CameraCapture })));
+
 export default function App() {
-  const [currentState, setCurrentState] = useState('loading');
-  const [user, setUser] = useState(null);
-  const [capturedImage, setCapturedImage] = useState('');
-  const [authLoading, setAuthLoading] = useState(false);
-  const [authError, setAuthError] = useState('');
+  const { state, actions } = useAppState();
 
-  // App initialization
-  useEffect(() => {
-    const initializeApp = async () => {
-      // Simulate app initialization (checking for saved user session, etc.)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Check for saved user session (in a real app, this would check localStorage/sessionStorage)
-      // For now, just transition to login
-      setCurrentState('login');
-    };
-
-    initializeApp();
-  }, []);
-
-  // Mock authentication functions
+  // Enhanced handlers with better UX
   const handleLogin = async (email, password) => {
-    setAuthLoading(true);
-    setAuthError('');
-    
-    // Simulate API call
-    setTimeout(() => {
-      if (email && password.length >= 6) {
-        const userData = {
-          name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
-          email: email
-        };
-        setUser(userData);
-        setCurrentState('dashboard');
-        toast('Successfully signed in!');
-      } else {
-        setAuthError('Invalid email or password. Password must be at least 6 characters.');
-      }
-      setAuthLoading(false);
-    }, 1000);
+    try {
+      await actions.login(email, password);
+    } catch (error) {
+      // Error is already handled in the action
+    }
   };
 
   const handleSignup = async (email, password, name) => {
-    setAuthLoading(true);
-    setAuthError('');
-    
-    // Simulate API call
-    setTimeout(() => {
-      if (email && password.length >= 6 && name.length >= 2) {
-        const userData = { name, email };
-        setUser(userData);
-        setCurrentState('dashboard');
-        toast('Account created successfully!');
-      } else {
-        setAuthError('Please check all fields. Password must be at least 6 characters.');
-      }
-      setAuthLoading(false);
-    }, 1000);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    setCurrentState('login');
-    setCapturedImage('');
-    toast('Signed out successfully');
-  };
-
-  const handleStartAnalysis = () => {
-    setCurrentState('camera');
+    try {
+      await actions.signup(email, password, name);
+    } catch (error) {
+      // Error is already handled in the action
+    }
   };
 
   const handleCameraCapture = (imageData) => {
-    setCapturedImage(imageData);
-    setCurrentState('results');
-    toast('Sample captured! Analyzing...');
-  };
-
-  const handleCameraCancel = () => {
-    setCurrentState('dashboard');
+    actions.captureImage(imageData);
+    
+    // Simulate analysis completion and add to history
+    setTimeout(() => {
+      const mockResults = {
+        overallScore: 85 + Math.floor(Math.random() * 15),
+        status: Math.random() > 0.8 ? 'elevated' : 'normal',
+        parameters: {
+          glucose: { value: 'Negative', status: 'normal' },
+          protein: { value: 'Trace', status: 'normal' },
+          ketones: { value: 'Negative', status: 'normal' },
+          blood: { value: 'Negative', status: 'normal' },
+          pH: { value: '6.5', status: 'normal' },
+          specificGravity: { value: '1.020', status: 'normal' },
+        }
+      };
+      actions.addAnalysis(mockResults);
+    }, 3000);
   };
 
   const handleNewAnalysis = () => {
-    setCapturedImage('');
-    setCurrentState('camera');
+    actions.clearCapturedImage();
+    actions.setState('camera');
   };
 
   const handleBackToDashboard = () => {
-    setCapturedImage('');
-    setCurrentState('dashboard');
+    actions.clearCapturedImage();
+    actions.setState('dashboard');
+  };
+
+  const handleExportData = () => {
+    // Mock data export
+    const dataToExport = {
+      user: state.user,
+      analyses: state.analysisHistory,
+      exportDate: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `urisnap-data-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast.success('Health data exported successfully!');
   };
 
   const renderCurrentView = () => {
-    switch (currentState) {
+    switch (state.currentState) {
       case 'loading':
-        return <LoadingScreen />;
+        return <EnhancedLoadingScreen />;
+
+      case 'onboarding':
+        return <OnboardingFlow onComplete={actions.completeOnboarding} />;
 
       case 'login':
         return (
           <LoginForm
             onLogin={handleLogin}
-            onSwitchToSignup={() => setCurrentState('signup')}
-            error={authError}
-            loading={authLoading}
+            onSwitchToSignup={() => actions.setState('signup')}
+            error={state.authError}
+            loading={state.authLoading}
           />
         );
 
@@ -119,35 +109,52 @@ export default function App() {
         return (
           <SignupForm
             onSignup={handleSignup}
-            onSwitchToLogin={() => setCurrentState('login')}
-            error={authError}
-            loading={authLoading}
+            onSwitchToLogin={() => actions.setState('login')}
+            error={state.authError}
+            loading={state.authLoading}
           />
         );
 
       case 'dashboard':
-        return user ? (
-          <Dashboard
-            user={user}
-            onStartAnalysis={handleStartAnalysis}
-            onLogout={handleLogout}
+        return state.user ? (
+          <EnhancedDashboard
+            user={state.user}
+            analysisHistory={state.analysisHistory}
+            onStartAnalysis={() => actions.setState('camera')}
+            onLogout={actions.logout}
+            onViewProfile={() => actions.setState('profile')}
           />
         ) : null;
 
       case 'camera':
         return (
-          <CameraCapture
-            onCapture={handleCameraCapture}
-            onCancel={handleCameraCancel}
-          />
+          <Suspense fallback={<EnhancedLoadingScreen />}>
+            <CameraCapture
+              onCapture={handleCameraCapture}
+              onCancel={() => actions.setState('dashboard')}
+            />
+          </Suspense>
         );
 
       case 'results':
-        return capturedImage ? (
-          <AnalysisResults
-            imageData={capturedImage}
-            onNewAnalysis={handleNewAnalysis}
-            onBackToDashboard={handleBackToDashboard}
+        return state.capturedImage ? (
+          <Suspense fallback={<EnhancedLoadingScreen />}>
+            <AnalysisResults
+              imageData={state.capturedImage}
+              onNewAnalysis={handleNewAnalysis}
+              onBackToDashboard={handleBackToDashboard}
+            />
+          </Suspense>
+        ) : null;
+
+      case 'profile':
+        return state.user ? (
+          <UserProfile
+            user={state.user}
+            settings={state.settings}
+            onBack={() => actions.setState('dashboard')}
+            onUpdateSettings={actions.updateSettings}
+            onExportData={handleExportData}
           />
         ) : null;
 
@@ -161,7 +168,18 @@ export default function App() {
       <div className="min-h-screen bg-background transition-colors duration-300">
         {renderCurrentView()}
       </div>
-      <Toaster position="top-center" />
+      <Toaster 
+        position="top-center" 
+        toastOptions={{
+          style: {
+            background: 'hsl(var(--card))',
+            color: 'hsl(var(--card-foreground))',
+            border: '1px solid hsl(var(--border))',
+          },
+        }}
+        closeButton
+        richColors
+      />
     </ThemeProvider>
   );
 }

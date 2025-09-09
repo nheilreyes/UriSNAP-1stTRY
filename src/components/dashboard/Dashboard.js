@@ -70,6 +70,9 @@ export function Dashboard({ user, onStartAnalysis, onLogout }) {
             </div>
           </div>
           <div className="flex items-center space-x-2">
+            <div className="mr-2 px-2 py-1 bg-primary-foreground/10 rounded text-xs">
+              Theme Test
+            </div>
             <ThemeToggle variant="ghost" size="sm" />
             <Button variant="ghost" size="sm" onClick={onLogout} className="text-primary-foreground hover:bg-primary-foreground/10">
               <LogOut className="h-5 w-5" />
@@ -80,17 +83,30 @@ export function Dashboard({ user, onStartAnalysis, onLogout }) {
 
       {/* Main Content */}
       <div className="px-6 py-6 space-y-6">
+        {/* Theme Test Card */}
+        <Card className="border-2 border-dashed border-primary">
+          <CardContent className="p-6 text-center">
+            <h3 className="text-lg font-bold text-primary mb-2">Theme Test Card</h3>
+            <p className="text-muted-foreground mb-4">This card should change appearance with theme</p>
+            <div className="bg-background border rounded p-4">
+              <div className="bg-card text-card-foreground p-2 rounded">
+                Card colors should change
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Health Score Card */}
-        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 dark:from-green-950 dark:to-emerald-950 dark:border-green-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Current Health Score</p>
-                <div className="text-4xl font-bold text-green-600 mt-1">95%</div>
-                <p className="text-sm text-green-700 mt-1">Excellent health</p>
+                <div className="text-4xl font-bold text-green-600 dark:text-green-400 mt-1">95%</div>
+                <p className="text-sm text-green-700 dark:text-green-300 mt-1">Excellent health</p>
               </div>
-              <div className="bg-green-100 p-4 rounded-full">
-                <TrendingUp className="h-8 w-8 text-green-600" />
+              <div className="bg-green-100 dark:bg-green-900 p-4 rounded-full">
+                <TrendingUp className="h-8 w-8 text-green-600 dark:text-green-400" />
               </div>
             </div>
           </CardContent>
