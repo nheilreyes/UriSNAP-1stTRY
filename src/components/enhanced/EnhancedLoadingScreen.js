@@ -40,7 +40,7 @@ export function EnhancedLoadingScreen() {
       <div className="text-center space-y-8 max-w-sm">
         {/* Animated Logo */}
         <div className="relative">
-          <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-8 rounded-3xl animate-pulse-glow">
+          <div className="bg-gradient-to-br from-primary/20 to-primary/10 dark:from-primary/40 dark:to-primary/20 p-8 rounded-3xl animate-pulse-glow border border-primary/30 shadow-lg">
             <CurrentIcon className="h-16 w-16 text-primary mx-auto transition-all duration-500" />
           </div>
           
@@ -49,7 +49,7 @@ export function EnhancedLoadingScreen() {
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="absolute w-2 h-2 bg-primary/20 rounded-full animate-bounce"
+                className="absolute w-2 h-2 bg-primary/60 dark:bg-primary/80 rounded-full animate-bounce shadow-sm"
                 style={{
                   left: `${20 + i * 15}%`,
                   top: `${30 + (i % 2) * 40}%`,

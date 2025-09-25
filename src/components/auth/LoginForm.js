@@ -64,13 +64,16 @@ export function LoginForm({ onLogin, onSwitchToSignup, error, loading }) {
           
           {/* Logo and Brand */}
           <div className="text-center space-y-4 animate-slide-up">
-            <div className="bg-gradient-to-br from-primary to-primary/80 p-4 rounded-2xl shadow-lg inline-block relative">
+            <div className="bg-gradient-to-br from-primary/70 to-primary/40 
+             backdrop-blur-md p-6 rounded-2xl shadow-[0_5px_12px_0_rgba(0,0,0,0.5)] 
+             border border-white/10 inline-flex items-center justify-center 
+             w-20 h-20 relative">
               <Activity className="h-8 w-8 text-primary-foreground" />
               <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full">
                 Live
               </div>
             </div>
-            
+          
             <div>
               <h1 className="text-2xl font-bold">Welcome Back</h1>
               <p className="text-muted-foreground text-sm">
@@ -96,7 +99,9 @@ export function LoginForm({ onLogin, onSwitchToSignup, error, loading }) {
           </div>
 
           {/* Login Card */}
-          <Card className="border-0 shadow-xl bg-card/80 backdrop-blur-sm animate-slide-up">
+          <Card className="bg-card/40 backdrop-blur-md border border-white/10 
+                 shadow-[0_5px_12px_0_rgba(0,0,0,0.5)] 
+                 rounded-2xl p-6 animate-slide-up">
             <CardContent className="p-6">
               <form onSubmit={handleSubmit} className="space-y-5">
                 

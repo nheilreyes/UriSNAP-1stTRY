@@ -26,7 +26,7 @@ export function OnboardingFlow({ onComplete }) {
       content: (
         <div className="text-center space-y-6">
           <div className="relative">
-            <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-8 rounded-3xl">
+            <div className="bg-gradient-to-br from-primary/20 to-primary/10 dark:from-primary/40 dark:to-primary/20 p-8 rounded-3xl border border-primary/30 shadow-lg">
               <Activity className="h-16 w-16 text-primary mx-auto animate-pulse-glow" />
             </div>
             <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
@@ -62,30 +62,30 @@ export function OnboardingFlow({ onComplete }) {
       content: (
         <div className="space-y-6">
           <div className="space-y-4">
-            <div className="flex items-start space-x-4 p-4 bg-blue-50 dark:bg-blue-950/20 rounded-xl">
+            <div className="flex items-start space-x-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-200/50 dark:border-blue-800/50">
               <div className="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
                 1
               </div>
               <div>
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100">Capture Sample</h3>
-                <p className="text-sm text-blue-700 dark:text-blue-300">
+                <h3 className="font-semibold text-blue-900 dark:text-white-100">Capture Sample</h3>
+                <p className="text-sm text-blue-700 dark:text-white-300">
                   Use your phone's camera to take a photo of your urine sample in good lighting
                 </p>
               </div>
-              <Camera className="h-6 w-6 text-blue-500 flex-shrink-0" />
+              <Camera className="h-6 w-6 text-blue-500 dark:text-white-400 flex-shrink-0" />
             </div>
             
-            <div className="flex items-start space-x-4 p-4 bg-green-50 dark:bg-green-950/20 rounded-xl">
+            <div className="flex items-start space-x-4 p-4 bg-green-50 dark:bg-green-950/30 rounded-xl border border-green-200/50 dark:border-green-800/50">
               <div className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
                 2
               </div>
               <div>
-                <h3 className="font-semibold text-green-900 dark:text-green-100">AI Analysis</h3>
-                <p className="text-sm text-green-700 dark:text-green-300">
+                <h3 className="font-semibold text-green-900 dark:text-white-100">AI Analysis</h3>
+                <p className="text-sm text-green-700 dark:text-white-300">
                   Our advanced AI analyzes color, clarity, and other visual indicators instantly
                 </p>
               </div>
-              <Brain className="h-6 w-6 text-green-500 flex-shrink-0" />
+              <Brain className="h-6 w-6 text-green-500 dark:text-white-400 flex-shrink-0" />
             </div>
             
             <div className="flex items-start space-x-4 p-4 bg-purple-50 dark:bg-purple-950/20 rounded-xl">
@@ -93,12 +93,12 @@ export function OnboardingFlow({ onComplete }) {
                 3
               </div>
               <div>
-                <h3 className="font-semibold text-purple-900 dark:text-purple-100">Get Results</h3>
-                <p className="text-sm text-purple-700 dark:text-purple-300">
+                <h3 className="font-semibold text-purple-900 dark:text-white-100">Get Results</h3>
+                <p className="text-sm text-purple-700 dark:text-white-300">
                   Receive detailed health insights, trends, and personalized recommendations
                 </p>
               </div>
-              <TrendingUp className="h-6 w-6 text-purple-500 flex-shrink-0" />
+              <TrendingUp className="h-6 w-6 text-white-500 flex-shrink-0" />
             </div>
           </div>
         </div>
@@ -110,14 +110,14 @@ export function OnboardingFlow({ onComplete }) {
       content: (
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
-            <Card className="border-2 border-dashed border-primary/20">
+            <Card className="border-2 border-dashed border-primary/30 dark:border-primary/40">
               <CardContent className="p-4 text-center">
                 <Heart className="h-8 w-8 text-red-500 mx-auto mb-2" />
                 <h4 className="font-semibold text-sm">Health Score</h4>
                 <p className="text-xs text-muted-foreground">Track overall wellness</p>
               </CardContent>
             </Card>
-            <Card className="border-2 border-dashed border-primary/20">
+            <Card className="border-2 border-dashed border-primary/30 dark:border-primary/40">
               <CardContent className="p-4 text-center">
                 <TrendingUp className="h-8 w-8 text-green-500 mx-auto mb-2" />
                 <h4 className="font-semibold text-sm">Trends</h4>
@@ -126,8 +126,8 @@ export function OnboardingFlow({ onComplete }) {
             </Card>
           </div>
           
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-6 rounded-xl">
-            <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-2">
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-800/20 dark:to-red-950/20 p-6 rounded-xl">
+            <h3 className="font-semibold text-orange-900 dark:text-orange-115 mb-2">
               What We Monitor
             </h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
@@ -201,7 +201,7 @@ export function OnboardingFlow({ onComplete }) {
           </div>
           
           <div className="bg-yellow-50 dark:bg-yellow-950/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
-            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+            <p className="text-sm text-yellow-800 dark:text-white-200">
               <strong>Medical Disclaimer:</strong> UriSNAP is for informational purposes only. 
               Always consult with healthcare professionals for medical advice.
             </p>

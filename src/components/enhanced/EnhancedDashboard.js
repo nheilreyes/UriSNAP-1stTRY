@@ -167,7 +167,7 @@ export function EnhancedDashboard({
                     </Badge>
                   )}
                 </div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                <div className="text-4xl health-score">
                   {user.healthScore}%
                 </div>
                 <div className="flex items-center space-x-2">
@@ -180,7 +180,7 @@ export function EnhancedDashboard({
                 <Progress value={user.healthScore} className="w-48 h-2" />
               </div>
               <div className="text-center">
-                <div className={`bg-gradient-to-br ${getHealthScoreColor(user.healthScore)} p-4 rounded-full opacity-20`}>
+                <div className="bg-primary/10 p-4 rounded-full">
                   <Heart className="h-12 w-12 text-primary" />
                 </div>
                 <Button 
@@ -357,10 +357,10 @@ export function EnhancedDashboard({
                       <TrendingUp className="h-4 w-4 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                      <h4 className="font-semibold text-blue-900 dark:text-white-100 mb-1">
                         Improving Trend
                       </h4>
-                      <p className="text-sm text-blue-700 dark:text-blue-300">
+                      <p className="text-sm text-blue-700 dark:text-white-300">
                         Your health score has improved by {weeklyTrend}% this week. Great job!
                       </p>
                     </div>
@@ -373,10 +373,10 @@ export function EnhancedDashboard({
                       <Heart className="h-4 w-4 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-green-900 dark:text-green-100 mb-1">
+                      <h4 className="font-semibold text-green-900 dark:text-white-100 mb-1">
                         Hydration Tip
                       </h4>
-                      <p className="text-sm text-green-700 dark:text-green-300">
+                      <p className="text-sm text-green-700 dark:text-white-300">
                         Based on your recent analyses, consider increasing water intake
                       </p>
                     </div>

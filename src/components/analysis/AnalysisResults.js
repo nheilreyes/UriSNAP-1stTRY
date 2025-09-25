@@ -74,13 +74,13 @@ export function AnalysisResults({ imageData, onNewAnalysis, onBackToDashboard })
   const getStatusColor = (status) => {
     switch (status) {
       case 'normal':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-100 text-green-800 dark:bg-green-950/20 dark:text-green-400';
       case 'elevated':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-950/20 dark:text-yellow-400';
       case 'low':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-950/20 dark:text-blue-400';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-950/20 dark:text-gray-400';
     }
   };
 
@@ -116,21 +116,21 @@ export function AnalysisResults({ imageData, onNewAnalysis, onBackToDashboard })
       {/* Main Content */}
       <div className="px-6 py-6 space-y-6">
         {/* Overall Score */}
-        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border-green-200 dark:border-green-800">
           <CardContent className="p-6">
             <div className="text-center space-y-4">
-              <div className="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center">
-                <Activity className="h-8 w-8 text-green-600" />
+              <div className="bg-green-100 dark:bg-green-900/50 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center">
+                <Activity className="h-8 w-8 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <div className="text-4xl font-bold text-green-600 mb-2">{overallScore.toFixed(0)}%</div>
-                <p className="text-green-700 font-medium">Overall Health Score</p>
-                <Badge className="bg-green-100 text-green-800 mt-2" variant="secondary">
+                <div className="text-4xl font-bold text-green-600 dark:text-black-400 mb-2">{overallScore.toFixed(0)}%</div>
+                <p className="text-green-700 dark:text-black-300 font-medium">Overall Health Score</p>
+                <Badge className="bg-green-100 text-black-800 dark:bg-green-900/50 dark:text-black-300 mt-2" variant="secondary">
                   {normalCount}/{totalCount} parameters normal
                 </Badge>
               </div>
-              <Progress value={overallScore} className="h-2 bg-green-100" />
-              <p className="text-sm text-green-700">
+              <Progress value={overallScore} className="h-2 bg-green-100 dark:bg-green-900/30" />
+              <p className="text-sm text-green-700 dark:text-black-300">
                 {overallScore === 100 
                   ? "Excellent! All parameters are within normal ranges."
                   : "Most parameters are normal. Review any flagged items below."}
@@ -170,20 +170,20 @@ export function AnalysisResults({ imageData, onNewAnalysis, onBackToDashboard })
                     <div className="flex items-center space-x-3">
                       {getStatusIcon(result.status)}
                       <div className="flex-1">
-                        <h4 className="font-medium">{result.parameter}</h4>
-                        <p className="text-sm text-muted-foreground">{result.description}</p>
+                        <h4 className="result-parameter">{result.parameter}</h4>
+                        <p className="text-sm result-description">{result.description}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-2 mb-1">
-                        <span className="font-semibold text-lg">
+                        <span className="result-value text-lg">
                           {result.value}{result.unit}
                         </span>
                         <Badge variant="secondary" className={getStatusColor(result.status)}>
                           {result.status}
                         </Badge>
                       </div>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs result-range">
                         Normal: {result.normalRange}
                       </p>
                     </div>

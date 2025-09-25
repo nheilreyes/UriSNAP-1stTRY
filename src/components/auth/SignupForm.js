@@ -131,7 +131,7 @@ export function SignupForm({ onSignup, onSwitchToLogin, error, loading }) {
           
           {/* Logo and Brand */}
           <div className="text-center space-y-4 animate-slide-up">
-            <div className="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-2xl shadow-lg inline-block relative">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-2xl shadow-lg inline-block relative">
               <Activity className="h-8 w-8 text-white" />
               <div className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full animate-bounce">
                 New
@@ -167,7 +167,8 @@ export function SignupForm({ onSignup, onSwitchToLogin, error, loading }) {
           </div>
 
           {/* Signup Card */}
-          <Card className="border-0 shadow-xl bg-card/80 backdrop-blur-sm animate-slide-up">
+          <Card  className="border-0 bg-card/80 backdrop-blur-sm rounded-2xl 
+             shadow-[0_5px_12px_0_rgba(0,0,0,0.5)] animate-slide-up">
             <CardContent className="p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 

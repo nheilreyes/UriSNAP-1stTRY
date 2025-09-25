@@ -1,19 +1,22 @@
 import { Suspense, lazy } from 'react';
-import { useAppState } from './hooks/useAppState';
-import { EnhancedLoadingScreen } from './components/enhanced/EnhancedLoadingScreen';
-import { OnboardingFlow } from './components/onboarding/OnboardingFlow';
-import { LoginForm } from './components/auth/LoginForm';
-import { SignupForm } from './components/auth/SignupForm';
-import { EnhancedDashboard } from './components/enhanced/EnhancedDashboard';
-import { CameraCapture } from './components/camera/CameraCapture';
-import { AnalysisResults } from './components/analysis/AnalysisResults';
-import { UserProfile } from './components/profile/UserProfile';
-import { ThemeProvider } from './components/theme/ThemeProvider';
+import { useAppState } from './hooks/useAppState.js';
+import { EnhancedLoadingScreen } from './components/enhanced/EnhancedLoadingScreen.js';
+import { OnboardingFlow } from './components/onboarding/OnboardingFlow.js';
+import { LoginForm } from './components/auth/LoginForm.js';
+import { SignupForm } from './components/auth/SignupForm.js';
+import { EnhancedDashboard } from './components/enhanced/EnhancedDashboard.js';
+import { CameraCapture } from './components/camera/CameraCapture.js';
+import { AnalysisResults } from './components/analysis/AnalysisResults.js';
+import { UserProfile } from './components/profile/UserProfile.js';
+import { ThemeProvider } from './components/theme/ThemeProvider.js';
 import { toast, Toaster } from 'sonner';
 
+// 🔥 IMPORTANT: Import your CSS file
+// Use simple-globals.css if you get Tailwind errors
+import './styles/simple-globals.css';
+
 // Lazy load components for better performance
-const LazyAnalysisResults = lazy(() => import('./components/analysis/AnalysisResults').then(module => ({ default: module.AnalysisResults })));
-const LazyCameraCapture = lazy(() => import('./components/camera/CameraCapture').then(module => ({ default: module.CameraCapture })));
+// Note: Uncomment these if you want to use lazy loading later
 
 export default function App() {
   const { state, actions } = useAppState();
